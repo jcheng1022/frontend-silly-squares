@@ -33,7 +33,7 @@ const CodeEditor = () => {
 
 
         setLoading(true)
-        return APIClient.api.post('/test', {
+        return APIClient.api.post('/task/generate', {
             data: form.code
         }).then((data) => {
             setResponse(data)
