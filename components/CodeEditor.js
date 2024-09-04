@@ -1,7 +1,7 @@
 'use client'
 
 import React, {useState} from 'react';
-import { CodeiumEditor } from "@codeium/react-code-editor";
+import {CodeiumEditor} from "@codeium/react-code-editor";
 import APIClient from "@/services/api";
 import {CopyBlock, dracula} from "react-code-blocks";
 
