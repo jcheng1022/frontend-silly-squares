@@ -3,6 +3,7 @@
 import React, {useState} from 'react';
 import { CodeiumEditor } from "@codeium/react-code-editor";
 import APIClient from "@/services/api";
+import {CopyBlock, dracula} from "react-code-blocks";
 
 const languageOptions = [
     {
@@ -10,14 +11,14 @@ const languageOptions = [
         label: 'Javascript'
 
     },
-    {
-        value: 'python',
-        label: 'Python'
-    }
+    // {
+    //     value: 'python',
+    //     label: 'Python'
+    // }
 ]
 const CodeEditor = () => {
     const [form, setForm] = useState({
-        code: "test('should throw an error when userId is not provided', async () => {\n  await expect(isValidUser()).rejects.toThrow('Missing User');\n});",
+        code: "",
         language: 'javascript',
         theme: 'vs-dark',
     })
@@ -48,18 +49,20 @@ const CodeEditor = () => {
     return (
         <div className={'m-12'}>
             <div>
-                <div className={'flex flex-col items-center'}>
-                    <div> Language</div>
 
-                    <div className={'flex gap-2'}>
-                        {languageOptions.map((option) => (
-                            <div key={`language-option-${option.value}`} onClick={() => setForm({
-                                ...form,
-                                language: option.value
-                            })} className={`${filterClassName} ${form.language === option.value ? 'border-blue-500' : ''}`}>{option.label}</div>
-                        ))}
-                    </div>
-                </div>
+                {/* NOTE: Temp commented out ; only supporting JS as of now*/}
+                {/*<div className={'flex flex-col items-center'}>*/}
+                {/*    <div> Language</div>*/}
+
+                {/*    <div className={'flex gap-2'}>*/}
+                {/*        {languageOptions.map((option) => (*/}
+                {/*            <div key={`language-option-${option.value}`} onClick={() => setForm({*/}
+                {/*                ...form,*/}
+                {/*                language: option.value*/}
+                {/*            })} className={`${filterClassName} ${form.language === option.value ? 'border-blue-500' : ''}`}>{option.label}</div>*/}
+                {/*        ))}*/}
+                {/*    </div>*/}
+                {/*</div>*/}
 
             </div>
             <CodeiumEditor
@@ -77,12 +80,8 @@ const CodeEditor = () => {
                 response?.map((testCase, index) => {
                     return (
                         <div key={`generated-test-${index}`} className={'my-8'}>
-                            <CodeiumEditor
-                                language={form.language}
-                                width={'100%'}
-                                theme={form.theme}
-                                value={testCase.test}
-                                />
+
+                            <CopyBlock theme={dracula} language={'javascript'} text={testCase.test}/>
                             <div> Explanation: {testCase.explanation} </div>
                         </div>
                     )
