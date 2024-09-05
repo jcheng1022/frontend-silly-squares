@@ -74,7 +74,7 @@ const Header = () => {
                     }}
                     trigger={["click"]}
                 >
-                    <div className={' text-2xl cursor-pointer font-bold hover:text-orange-500'} onClick={() => router.push(`/user/${user?.firebaseUuid}`)}  > {user?.name ? user.name : 'No name yet!'} </div>
+                    <div className={' text-md sm:text-2xl  cursor-pointer font-bold hover:text-orange-500'} onClick={() => router.push(`/user/${user?.firebaseUuid}`)}  > {user?.name ? user.name : 'No name yet!'} </div>
                 </Dropdown>
 
             )
@@ -84,9 +84,9 @@ const Header = () => {
 
 
     return (
-        <div className={'px-8 h-24 py-4 flex  items-center justify-between bg-slate-400 text-white'}>
-            <div className={'font-bold text-3xl cursor-pointer hover:text-orange-500'}>
-                Code Chekr
+        <div className={'px-8 h-24 py-4 flex  items-center justify-between bg-neutral-800 text-white'}>
+            <div className={'font-bold text-lg sm:text-3xl cursor-pointer hover:text-orange-500'}>
+                Code Tests Generator
             </div>
             <div>
                 {endSection()}

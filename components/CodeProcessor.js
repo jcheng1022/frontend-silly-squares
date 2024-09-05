@@ -16,7 +16,7 @@ const languageOptions = [
     //     label: 'Python'
     // }
 ]
-const CodeEditor = () => {
+const CodeProcessor = () => {
     const [form, setForm] = useState({
         code: "",
         language: 'javascript',
@@ -91,4 +91,4 @@ const CodeEditor = () => {
     );
 };
 
-export default CodeEditor;
+export default CodeProcessor;
