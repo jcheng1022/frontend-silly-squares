@@ -33,9 +33,14 @@ export const AuthContextProvider = ({
         signInWithPopup(auth, provider)
             .then( (result) => {
                 const credential = GoogleAuthProvider.credentialFromResult(result);
-                const token = credential.accessToken;
-                // The signed-in user info.
-                const user = result.user;
+                // const token = credential.accessToken;
+                // // The signed-in user info.
+                // const user = result.user;
+
+                // if on the landing page, redirect to generate page after signing in
+                if (window.location.href === '/') {
+                    window.location.href = '/generate'
+                }
                 // window.location.href = window.location.href
 
             }).catch((error) => {
