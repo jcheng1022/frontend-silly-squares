@@ -47,54 +47,6 @@ export const useCurrentUserData = (props = {})  => {
 
 }
 
-export const useUserTasks = (userId, props = {})  => {
-
-    const queryKey = [userId, 'tasks', props];
-
-
-
-    return useQuery({
-        queryKey,
-        ...defaultQueryProps,
-        enabled: !!userId,
-        retry: 5,
-        queryFn: () => APIClient.api.get(`/task/${userId}/tasks`, {params: props})
-    })
-
-
-}
-
-export const useUserTaskHistory = (userId) => {
-    const queryKey = [userId, 'tasks', 'history']
-
-
-    return useQuery({
-        queryKey,
-        ...defaultQueryProps,
-        enabled: !!userId,
-        retry: 5,
-        queryFn: () => APIClient.api.get(`/user/${userId}/history`, {})
-    })
-
-}
-
-export const useUserTodayTasks = (userId, props = {})  => {
-
-    const queryKey = [userId, 'tasks', 'today',props];
-
-
-
-    return useQuery({
-        queryKey,
-        ...defaultQueryProps,
-        enabled: !!userId,
-        retry: 5,
-        queryFn: () => APIClient.api.get(`/task/${userId}/today`, {params: props})
-    })
-
-
-}
-
 export const useUserIsLoggedIn = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     onAuthStateChanged(auth,  (user) => {

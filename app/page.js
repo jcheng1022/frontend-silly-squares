@@ -1,6 +1,4 @@
 import React from 'react';
-import {CodeiumEditor} from "@codeium/react-code-editor";
-import CodeProcessor from "@/components/CodeProcessor";
 import CodeEditor from "@/components/core/CodeEditor";
 import Hero from "@/components/landing/Hero";
 
