@@ -4,6 +4,7 @@ import React, {useState} from 'react';
 import {CodeiumEditor} from "@codeium/react-code-editor";
 import APIClient from "@/services/api";
 import {CopyBlock, dracula} from "react-code-blocks";
+import {notification} from "antd";
 
 const languageOptions = [
     {
@@ -23,6 +24,8 @@ const CodeProcessor = () => {
         theme: 'vs-dark',
     })
     const [loading, setLoading] = useState(false)
+    const [api, contextHolder] = notification.useNotification();
+
 
     const [response, setResponse] = useState(null)
 
@@ -37,7 +40,15 @@ const CodeProcessor = () => {
             data: form.code
         }).then((data) => {
             setResponse(data)
-        }).finally(() => {
+        }).catch((e) => {
+            api.info({
+                className:"text-white",
+                message: <div className={'text-white'}> Something went wrong!</div>,
+                description: <div className={'text-white'}>We are unable to generate the unit tests for you. Please try again later </div>,
+                placement: "bottomRight",
+            });
+        })
+            .finally(() => {
             setLoading(false)
         })
     }
@@ -48,6 +59,7 @@ const CodeProcessor = () => {
     const filterClassName= 'border-2 border-gray-200 hover:border-sky-200 rounded-md p-2 cursor-pointer '
     return (
         <div className={'m-12'}>
+            {contextHolder}
             <div>
 
                 {/* NOTE: Temp commented out ; only supporting JS as of now*/}
