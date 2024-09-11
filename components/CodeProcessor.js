@@ -51,8 +51,8 @@ const CodeProcessor = () => {
                 key:"loading-notification",
                 className:"text-white",
                 type: "success",
-                message: <div className={'text-white'}> Usage limit reached</div>,
-                description: <div className={'text-white'}> As we are in early stages, we unfortunately have to limit users to 1 request a day.</div>,
+                message: <div className={'text-white'}> Finished!</div>,
+                description: <div className={'text-white'}> Your unit tests have been generated, please be sure to review them yourself.</div>,
                 placement: "bottomRight",
             });
             setResponse(data)
