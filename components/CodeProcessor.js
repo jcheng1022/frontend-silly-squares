@@ -36,12 +36,30 @@ const CodeProcessor = () => {
 
 
         setLoading(true)
+        api.info({
+            duration: null,
+            key: "loading-notification",
+            className:"text-white",
+            message: <div className={'text-white'}> Generating...</div>,
+            description: <div className={'text-white'}> Please be patient as we generate your unit tests</div>,
+            placement: "bottomRight",
+        });
         return APIClient.api.post('/task/generate', {
             data: form.code
         }).then((data) => {
+            api.open({
+                key:"loading-notification",
+                className:"text-white",
+                type: "success",
+                message: <div className={'text-white'}> Finished!</div>,
+                description: <div className={'text-white'}> Your unit tests have been generated and should appear shortly!</div>,
+                placement: "bottomRight",
+            });
             setResponse(data)
+
         }).catch((e) => {
             api.info({
+                key:"loading-notification",
                 className:"text-white",
                 message: <div className={'text-white'}> Something went wrong!</div>,
                 description: <div className={'text-white'}>We are unable to generate the unit tests for you. Please try again later </div>,
