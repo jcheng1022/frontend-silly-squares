@@ -5,6 +5,8 @@ import {CodeiumEditor} from "@codeium/react-code-editor";
 import APIClient from "@/services/api";
 import {CopyBlock, dracula} from "react-code-blocks";
 import {notification} from "antd";
+import {useQueryClient} from "@tanstack/react-query";
+import {useCurrentUser} from "@/hooks/user.hooks";
 
 const languageOptions = [
     {
@@ -25,6 +27,8 @@ const CodeProcessor = () => {
     })
     const [loading, setLoading] = useState(false)
     const [api, contextHolder] = notification.useNotification();
+    const client = useQueryClient();
+    const {data: user} = useCurrentUser();
 
 
     const [response, setResponse] = useState(null)
@@ -46,8 +50,8 @@ const CodeProcessor = () => {
         });
         return APIClient.api.post('/task/generate', {
             data: form.code
-        }).then((data) => {
-            api.open({
+        }).then(async (data) => {
+            await api.open({
                 key:"loading-notification",
                 className:"text-white",
                 type: "success",
@@ -55,6 +59,9 @@ const CodeProcessor = () => {
                 description: <div className={'text-white'}> Your unit tests have been generated, please be sure to review them yourself.</div>,
                 placement: "bottomRight",
             });
+            await client.refetchQueries({
+                queryKey: ['usage', user?.id, {}]
+            })
             setResponse(data)
 
         }).catch((e) => {

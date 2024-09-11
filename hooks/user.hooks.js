@@ -10,13 +10,10 @@ import {onAuthStateChanged} from "firebase/auth";
 
 
 export const useCurrentUser = ( props = {})  => {
-    console.log(`usu hit`)
 
     const queryKey = ['currentUser', props];
 
     const uid = auth.currentUser?.uid
-
-    console.log(!!uid, 'is this on', auth)
 
     return useQuery({
         queryKey,
@@ -29,9 +26,9 @@ export const useCurrentUser = ( props = {})  => {
 
 }
 
-export const useCurrentUserData = (props = {})  => {
+export const useUserUsage = (userId, props = {})  => {
 
-    const queryKey = ['userData', props];
+    const queryKey = ['usage', userId, props];
 
 
 
@@ -39,9 +36,9 @@ export const useCurrentUserData = (props = {})  => {
         queryKey,
         ...defaultQueryProps,
 
-        // enabled: !!userId,
+        enabled: !!userId,
         retry: 5,
-        queryFn: () => APIClient.api.get(`/user/ranking`, {params: props})
+        queryFn: () => APIClient.api.get(`/user/credits`, {params: props})
     })
 
 
