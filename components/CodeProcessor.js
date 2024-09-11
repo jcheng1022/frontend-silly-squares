@@ -51,20 +51,41 @@ const CodeProcessor = () => {
                 key:"loading-notification",
                 className:"text-white",
                 type: "success",
-                message: <div className={'text-white'}> Finished!</div>,
-                description: <div className={'text-white'}> Your unit tests have been generated and should appear shortly!</div>,
+                message: <div className={'text-white'}> Usage limit reached</div>,
+                description: <div className={'text-white'}> As we are in early stages, we unfortunately have to limit users to 1 request a day.</div>,
                 placement: "bottomRight",
             });
             setResponse(data)
 
         }).catch((e) => {
-            api.info({
-                key:"loading-notification",
-                className:"text-white",
-                message: <div className={'text-white'}> Something went wrong!</div>,
-                description: <div className={'text-white'}>We are unable to generate the unit tests for you. Please try again later </div>,
-                placement: "bottomRight",
-            });
+            if (e.message === "Daily usage limit reached") {
+                api.open({
+                    key:"loading-notification",
+                    className:"text-white",
+                    message: <div className={'text-white'}> Usage limit reached</div>,
+                    description: <div className={'text-white'}> As we are in early stages, we unfortunately have to limit users to 2 request a day.</div>,
+                    placement: "bottomRight",
+                });
+
+            } else if (e.message === "Weekly usage limit reached") {
+                api.open({
+                    key:"loading-notification",
+                    className:"text-white",
+                    message: <div className={'text-white'}> Usage limit reached</div>,
+                    description: <div className={'text-white'}> As we are in early stages, we unfortunately have to limit users to 2 request a week.</div>,
+                    placement: "bottomRight",
+                });
+
+            } else {
+                api.info({
+                    key:"loading-notification",
+                    className:"text-white",
+                    message: <div className={'text-white'}> Something went wrong!</div>,
+                    description: <div className={'text-white'}>We are unable to generate the unit tests for you. Please try again later </div>,
+                    placement: "bottomRight",
+                });
+            }
+
         })
             .finally(() => {
             setLoading(false)
