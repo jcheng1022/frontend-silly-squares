@@ -11,7 +11,6 @@ const Header = () => {
     const router = useRouter()
 
     const { data: user, isFetching, isLoading,isRefetching  } = useCurrentUser();
-    const {data: usage} = useUserUsage(user?.id);
     const fetchingUser = isFetching || isLoading;
 
     const userUid = useUserIsLoggedIn()
@@ -51,19 +50,6 @@ const Header = () => {
 
             return (
                <div className={'flex items-center'}>
-                   {!!usage?.dailyUsage && (
-                       <div className={' flex gap-2 items-center mr-12 font-semibold text-lg'}>
-                           {usage?.dailyUsage === "1" ? `${usage.dailyUsage} credit` : `${usage.dailyUsage} credits`}
-                           {usage?.dailyUsage === "0" && (
-                                   <span className={'cursor-pointer'}>
-                               <Tooltip title={"Users are temporarily limited to 2 requests a day; Credits will be reset every morning"}>
-                                   <IoMdInformationCircleOutline />
-                               </Tooltip>
-
-                           </span>
-                               )}
-                       </div>
-                   )}
                    <Dropdown
                        menu={{
                            items,
@@ -83,7 +69,7 @@ const Header = () => {
     return (
         <div className={'px-8 h-24 py-4 flex  items-center justify-between bg-neutral-800 text-white'}>
             <div className={'font-bold text-lg sm:text-3xl cursor-pointer hover:text-orange-500'} onClick={() => router.push('/')}>
-                Code Tests Generator
+                Silly Squares
             </div>
             <div>
                 {endSection()}

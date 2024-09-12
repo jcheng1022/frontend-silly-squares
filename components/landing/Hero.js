@@ -13,18 +13,18 @@ const Hero = () => {
     const handleCta = () => {
         if (isLoading) return;
 
-        if (!!user) {
-            router.push('/generate')
-        } else {
+        // if (!!user) {
+        //     router.push('/generate')
+        // } else {
             handleSignIn()
-        }
+        // }
     }
     return (
         <div className={'py-12 text-center'}>
 
             <div className={'mb-6'}>
-                <div className={' text-2xl sm:text-6xl font-bold'}> Code Tests Generator</div>
-                <div className={'text-2xl text-slate-400'}> No more untested code </div>
+                <div className={' text-2xl sm:text-6xl font-bold'}> A fun little game</div>
+                <div className={'text-2xl text-slate-400'}> {`Conquer your enemy squares, that's it!`} </div>
             </div>
             <button onClick={handleCta} className={' text-2xl font-bold rounded-xl bg-orange-400 px-8 py-4'}> Get Started</button>
 

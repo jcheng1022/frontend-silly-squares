@@ -26,24 +26,6 @@ export const useCurrentUser = ( props = {})  => {
 
 }
 
-export const useUserUsage = (userId, props = {})  => {
-
-    const queryKey = ['usage', userId, props];
-
-
-
-    return useQuery({
-        queryKey,
-        ...defaultQueryProps,
-
-        enabled: !!userId,
-        retry: 5,
-        queryFn: () => APIClient.api.get(`/user/credits`, {params: props})
-    })
-
-
-}
-
 export const useUserIsLoggedIn = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     onAuthStateChanged(auth,  (user) => {
