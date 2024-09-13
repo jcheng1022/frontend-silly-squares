@@ -1,9 +1,6 @@
 'use client';
 
 import React from 'react';
-import {List, Table} from "antd";
-import {RiLockPasswordFill} from "react-icons/ri";
-import {FaLock} from "react-icons/fa";
 import {useRouter} from "next/navigation";
 
 const LobbyList = ({rooms}) => {
