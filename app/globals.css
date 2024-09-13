@@ -3,7 +3,12 @@
 @tailwind utilities;
 
 
-* {
+html {
     background-color:  rgb(38 38 38);
     color: white;
 }
+
+
+/*.ant-table {*/
+/*    background-color:  rgb(38 38 38);*/
+/*}*/

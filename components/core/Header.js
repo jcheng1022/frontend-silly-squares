@@ -1,10 +1,9 @@
 'use client';
 import React from 'react';
-import {Dropdown, Tooltip} from "antd";
+import {Dropdown} from "antd";
 import {useAuthContext} from "@/context/AuthContext";
-import {useCurrentUser, useUserIsLoggedIn, useUserUsage} from "@/hooks/user.hooks";
+import {useCurrentUser, useUserIsLoggedIn} from "@/hooks/user.hooks";
 import {useRouter} from "next/navigation";
-import {IoMdInformationCircleOutline} from "react-icons/io";
 
 
 const Header = () => {

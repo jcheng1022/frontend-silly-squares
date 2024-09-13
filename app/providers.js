@@ -2,8 +2,7 @@
 
 
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
-import { AblyProvider, ChannelProvider, useChannel, useConnectionStateListener } from 'ably/react';
-import * as Ably from 'ably';
+// import { AblyProvider, ChannelProvider, useChannel, useConnectionStateListener } from 'ably/react';
 
 
 export const defaultQueryProps = {
@@ -33,7 +32,7 @@ function getQueryClient() {
         return browserQueryClient
     }
 }
-const client = new Ably.Realtime({ key: process.env.NEXT_PUBLIC_ABLY_API_KEY });
+// const client = new Ably.Realtime({ key: process.env.NEXT_PUBLIC_ABLY_API_KEY });
 
 export default function Providers({ children }) {
 
@@ -42,11 +41,11 @@ export default function Providers({ children }) {
 
     return (
         <QueryClientProvider client={queryClient}>
-            <AblyProvider client={client}>
-                <ChannelProvider channelName="get-started">
+            {/*<AblyProvider client={client}>*/}
+            {/*    <ChannelProvider channelName="get-started">*/}
                     {children}
-                </ChannelProvider>
-            </AblyProvider>
+            {/*    </ChannelProvider>*/}
+            {/*</AblyProvider>*/}
         </QueryClientProvider>
     )
 }
