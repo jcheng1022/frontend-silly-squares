@@ -7,8 +7,10 @@ import {Realtime} from "ably";
 import {useCurrentUser} from "@/hooks/user.hooks";
 import APIClient from "@/services/api";
 import {useGameRoomPlayers} from "@/hooks/games.hooks";
+import {useQueryClient} from "@tanstack/react-query";
 
 const Page = ({params}) => {
+    const queryClient = useQueryClient();
 
     const [messages, setMessages] = useState([]);
     const {data: user} = useCurrentUser()
@@ -28,11 +30,22 @@ const Page = ({params}) => {
             return
         }
 
+        // if already in the game
+        if (participants?.playerOne?.id === user?.id || participants?.playerTwo?.id === user?.id) {
+            console.log(`in game`)
+            return
+        }
+
         const joinRoom = async () => {
             await APIClient.api.patch(`/games/${params?.gameId}/join`)
         }
 
-        joinRoom().catch((e) => {
+        joinRoom().then(async () => {
+            //refetch participatns
+            await queryClient.refetchQueries({
+                queryKey: ['game-room-players', params.gameId]
+            })
+        }).catch((e) => {
             console.log(`Something went wrong with joining the room: ${e?.message ?? e}`)
         })
     }, [user, participants])

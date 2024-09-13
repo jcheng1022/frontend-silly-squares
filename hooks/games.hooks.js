@@ -29,7 +29,7 @@ export const useLobbyRooms = (userId, props = {})  => {
 
 export const useGameRoomPlayers = (userId, gameId, props = {})  => {
 
-    const queryKey = ['game', 'room', gameId, props];
+    const queryKey = ['game-room-players', gameId, props];
 
 
 

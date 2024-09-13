@@ -98,7 +98,6 @@ const GameBoard = () => {
     });
 
 
-    console.log(players, 'players')
 
 
     const PLAYER_DETAILS = {
