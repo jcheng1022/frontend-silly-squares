@@ -6,6 +6,7 @@ import {useQuery} from "@tanstack/react-query";
 import {defaultQueryProps} from "@/app/providers";
 import APIClient from "@/services/api";
 
+
 export const useLobbyRooms = (userId, props = {})  => {
 
     const queryKey = ['lobby', 'rooms', props];
@@ -19,6 +20,25 @@ export const useLobbyRooms = (userId, props = {})  => {
         enabled: !!userId,
         retry: 5,
         queryFn: () => APIClient.api.get(`/games/lobbies`, {params: props})
+    })
+
+
+}
+
+
+
+export const useGameRoomPlayers = (userId, gameId, props = {})  => {
+
+    const queryKey = ['game', 'room', gameId, props];
+
+
+
+    return useQuery({
+        queryKey,
+        ...defaultQueryProps,
+        enabled: !!userId,
+        retry: 5,
+        queryFn: () => APIClient.api.get(`/games/${gameId}/players`, {params: props})
     })
 
 

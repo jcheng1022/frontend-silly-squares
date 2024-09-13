@@ -4,12 +4,14 @@ import React, {useState} from 'react';
 import {Input, Modal, notification} from "antd";
 import APIClient from "@/services/api";
 import {useQueryClient} from "@tanstack/react-query";
+import {useRouter} from "next/navigation";
 
 const CreateGameModal = ({open, setOpen}) => {
     const [form, setForm] = useState({
         name: ""
     })
     const client = useQueryClient();
+    const router = useRouter()
 
     const [api, contextHolder] = notification.useNotification();
     const [errors, setErrors] = useState({
@@ -58,12 +60,13 @@ const CreateGameModal = ({open, setOpen}) => {
         }
 
 
-        await APIClient.api.post(`/games`, form).then(async () => {
-            await client.refetchQueries({
+        await APIClient.api.post(`/games`, form).then(async (data) => {
+            await client.invalidateQueries({
                 queryKey: ['lobby', 'rooms', {}]
             })
 
             setOpen(false)
+            router.push(`/game/${data?.id}`)
 
         }).catch((e) => {
             api.open({

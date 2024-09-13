@@ -5,11 +5,13 @@ import {useParams, useSearchParams} from "next/navigation";
 import {Realtime} from "ably";
 import {AblyProvider, ChannelProvider, useChannel, useConnectionStateListener} from "ably/react";
 import {useCurrentUser} from "@/hooks/user.hooks";
+import {useGameRoomPlayers} from "@/hooks/games.hooks";
 
 const GameBoard = () => {
 
     const {gameId} = useParams();
     const {data: user} = useCurrentUser();
+    const {data: participants} = useGameRoomPlayers(user?.id, gameId)
     const search = useSearchParams()
 
     const [players, setPlayers] = useState({
@@ -234,11 +236,11 @@ const GameBoard = () => {
                 <div className={'m-8'}>
                     <div className={' flex gap-2 justify-center  mb-12 '}>
                         <div className={'flex flex-col items-center'}>
-                            <div> {`Player 1 ${players?.playerOne?.name}`}</div>
+                            <div> {`Player 1 ${participants?.playerOne?.name}`}</div>
                             <div> {boardState?.filter(space => space.isOccupied === player?.value).length}</div>
                         </div>
                         <div className={'flex flex-col items-center'}>
-                            <div> {`Player 2 ${players?.playerTwo?.name}`}</div>
+                            <div> {`Player 2 ${participants?.playerTwo?.name}`}</div>
                             <div> {boardState?.filter(space => space.isOccupied === player?.value).length}</div>
                         </div>
                     </div>
