@@ -13,11 +13,11 @@ const Hero = () => {
     const handleCta = () => {
         if (isLoading) return;
 
-        // if (!!user) {
-        //     router.push('/generate')
-        // } else {
+        if (!!user) {
+            router.push('/lobbies')
+        } else {
             handleSignIn()
-        // }
+        }
     }
     return (
         <div className={'py-12 text-center'}>

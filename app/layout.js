@@ -7,8 +7,8 @@ import {AuthContextProvider} from "@/context/AuthContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Code Test Generator",
-  description: "An easy to use software to analyze javascript code and develop test cases using Jest",
+  title: "Silly Squares",
+  description: "Compete against other players to conquer squares on a grid. Whoever conquers the most squares, wins.",
 };
 
 export default function RootLayout({ children }) {
