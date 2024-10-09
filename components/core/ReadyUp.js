@@ -7,6 +7,7 @@ import {notification} from "antd";
 import {useQueryClient} from "@tanstack/react-query";
 import {useGameRoomPlayers} from "@/hooks/games.hooks";
 import {useCurrentUser} from "@/hooks/user.hooks";
+import {useChannel} from "ably/react";
 
 const ReadyUp = () => {
     const {gameId} = useParams();
@@ -15,9 +16,20 @@ const ReadyUp = () => {
     const client = useQueryClient()
     const {data: user} = useCurrentUser()
     const { participants } = useGameRoomPlayers(user?.id, gameId)
+    const { channel } = useChannel(`game-room-${gameId}`, async (message) => {
 
 
-    const handleReady = async () => {
+        // if (message.name === 'player-ready') {
+        //
+        //
+        //     await client.refetchQueries({
+        //         queryKey: ['game-room-players', gameId, {}]
+        //     })
+        // }
+    })
+
+
+        const handleReady = async () => {
         await APIClient.api.patch(`/games/${gameId}/ready`).then(async () => {
             await notification.success({
                 message: 'Ready',
@@ -25,20 +37,29 @@ const ReadyUp = () => {
 
             })
 
-            await client.refetchQueries({
-                queryKey: ['game-room-players', gameId, {}]
-            })
+            channel.publish("player-ready", {})
 
+            //check if both players are now ready
 
-            if (!!participants?.playerOne?.ready && !!participants?.playerTwo?.ready) {
-                await notification.success({
-                    message: 'Game is ready',
-                    description: 'Game is ready to start'
-                })
-                await client.refetchQueries({
-                    queryKey: ['game-ready-status', gameId]
-                })
+            if (!!participants?.playerOne?.isReady ) {
+
+                // this means that the first player was readied up, so its safe to assume both are now ready
+               channel.publish("both-players-ready", {})
             }
+
+
+
+
+
+            // if (!!participants?.playerOne?.ready && !!participants?.playerTwo?.ready) {
+            //     await notification.success({
+            //         message: 'Game is ready',
+            //         description: 'Game is ready to start'
+            //     })
+            //     await client.refetchQueries({
+            //         queryKey: ['game-ready-status', gameId]
+            //     })
+            // }
 
             //
             // await client.refetchQueries({
