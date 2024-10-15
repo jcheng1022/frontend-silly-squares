@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {Input, Modal} from "antd";
-import {useGameContext} from "@/context/GameContext";
+import {Modal} from "antd";
 
-const GameStartingModal = ({open = false}) => {
+const GameStartingModal = ({channel, open = false}) => {
     const [countdown, setCountdown]= useState(5)
-    const {channel } = useGameContext()
 
     useEffect(() => {
 
@@ -18,7 +16,6 @@ const GameStartingModal = ({open = false}) => {
 
         if (countdown === 0 ) {
             //handle game start
-            console.log(`game starting`)
             channel.publish("game-start",  {})
 
         }

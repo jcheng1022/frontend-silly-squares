@@ -21,7 +21,6 @@ const LobbyList = ({rooms}) => {
     const childClassName = ` bg-inherit`
 
     const handleRoomSelection = (room) => () => {
-        console.log(room, '22')
         // if (room?.hasPassword) {
         //     console.log('Room has password')
         // } else {

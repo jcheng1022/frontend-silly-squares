@@ -5,9 +5,9 @@ import APIClient from "@/services/api";
 import {useParams} from "next/navigation";
 import {notification} from "antd";
 import {useQueryClient} from "@tanstack/react-query";
-import {useGameRoomPlayers} from "@/hooks/games.hooks";
 import {useCurrentUser} from "@/hooks/user.hooks";
 import {useChannel} from "ably/react";
+import {useGameContext} from "@/context/GameContext";
 
 const ReadyUp = () => {
     const {gameId} = useParams();
@@ -15,7 +15,8 @@ const ReadyUp = () => {
     const [api, contextHolder] = notification.useNotification();
     const client = useQueryClient()
     const {data: user} = useCurrentUser()
-    const { participants } = useGameRoomPlayers(user?.id, gameId)
+    const { participants} = useGameContext()
+    // const { participants } = useGameRoomPlayers(user?.id, gameId)
     const { channel } = useChannel(`game-room-${gameId}`, async (message) => {
 
 
